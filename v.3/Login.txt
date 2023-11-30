@@ -1,0 +1,5 @@
+principal:password
+guest:password
+teacher:password
+owner:password
+Owner:password
