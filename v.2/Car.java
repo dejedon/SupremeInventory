@@ -30,6 +30,15 @@ public class Car {
         car.println(make+"_"+ model+"_"+ vin +"_" +price +"_" + des); 
         addcar(path);
         
+
+        //[Loan Function] Added the loan file creation
+        try{
+        File loanFile = new File(folder,"Loans.txt");
+        if (loanFile.createNewFile()){System.out.println("Created new loan file for car: " + make + "_" + model + "_" + id);}
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public Car(String data){// throws FileNotFoundException{
@@ -56,6 +65,134 @@ public class Car {
         return path + "/" + make+ "_" + model + ".txt";
     }
     
+    /**
+     * [Loan Function] This fucntion will get the loan for car from a record file.
+     * The benfit of this is that you can change the information stored in the file and the retreval when needed.
+     * @return path to loan.txt
+     */
+    public String getLoanFile(){
+        return path + "/" + "LoanData.txt";
+    }
+    
+    /**
+     * [Loan Function] This fucntion reads all the loans under the cars loan 
+     * @return an ArrayList<string> of all the loans under the car
+     */
+    public ArrayList<String> LoadLoans(){
+        File loanFile = new File(getLoanFile());
+        ArrayList<String> Loans = new ArrayList<>();
+        try{
+            Scanner loanScanner = new Scanner(loanFile);
+            while(loanScanner.hasNext()){
+                Loans.add(loanScanner.nextLine());
+            }
+            loanScanner.close();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return Loans;
+    }
+
+    /**
+     * [Loan Function] This function Adds a loan to the Car by entering it in the loan.txt.
+     * @param bank
+     * @param job
+     * @param date
+     */
+    public void AddLoan(String bank, String job, String[] date){
+        File loanFile = new File(this.getLoanFile());
+        try{
+            FileWriter loanFw = new FileWriter(loanFile,true);
+            loanFw.append(bank + "_" + job + "_" + date[0] + "_" + date[1]+ "_" + date[2]);
+            loanFw.close();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * [Loan Function] This function Adds a loan to the Car by entering it in the loan.txt.
+     * @param bank
+     * @param job
+     * @param day
+     * @param month
+     * @param year
+     */
+    public void AddLoan(String bank, String job, String day, String month, String year){
+        File loanFile = new File(this.getLoanFile());
+        try{
+            FileWriter loanFw = new FileWriter(loanFile,true);
+            loanFw.append(bank + "_" + job + "_" + day + "_" + month+ "_" + year);
+            loanFw.close();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /***
+     * [Loan Function] This function removes a loan from loan.txt
+     * @param bank
+     * @param job
+     * @param date
+     */
+    public void RemoveLoan(String bank, String job, String[] date){
+        ArrayList<String> loanList = LoadLoans();
+        loanList.remove(bank + "_" + job + "_" + date[0] + "_" + date[1] + "_" + date[2]);
+        try{
+            FileWriter fw = new FileWriter(getFile());
+            for (String string : loanList) {
+                fw.write(string);
+            }
+            fw.close();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /***
+     * [Loan Function] This function removes a loan from loan.txt
+     * @param bank
+     * @param job
+     * @param day
+     * @param month
+     * @param year
+     */
+    public void RemoveLoan(String bank, String job, String day, String month, String year){
+        ArrayList<String> loanList = LoadLoans();
+        loanList.remove(bank + "_" + job + "_" + day + "_" + month + "_" + year);
+        try{
+            FileWriter fw = new FileWriter(getFile());
+            for (String string : loanList) {
+                fw.write(string);
+            }
+            fw.close();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * [Loan Function] This function checks to see if the car has any loans in loan.txt.
+     * @return True if the car has a loan in progress.
+     */
+    public Boolean HasLoan(){
+        return LoadLoans().size() > 0;
+    }
+
+    /**
+     * [Loan Function] This function get the amount of loans under the cars loan.txt.
+     * @return an integer with the number of loans
+     */
+    public int CountLoans(){
+        return LoadLoans().size();
+    }
+
+
     public ArrayList<String> readFile()
     {
         ArrayList<String> sublist = new ArrayList<>();
