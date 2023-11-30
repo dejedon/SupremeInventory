@@ -44,11 +44,6 @@ public class Car {
         return make + " " + model + " ID#" + ids;
     }
 
-    // Get price requirement - Dejean 
-    public String getCarPrice(){
-        return make + " " + model + " Price:" + price + " ID#" + ids;
-    }
-
     public String getPath(){
         return path;
     }
