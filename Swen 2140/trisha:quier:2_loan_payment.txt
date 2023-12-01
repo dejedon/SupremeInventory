@@ -1,0 +1,4 @@
+Deposit	Total Amount Paid	Total Interest
+10%	$7361.46	$926.46
+20%	$7258.52	$823.52
+30%	$7155.58	$720.58

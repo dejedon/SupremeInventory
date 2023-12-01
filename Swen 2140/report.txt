@@ -1,0 +1,10 @@
+Car Make	Car Model	Car VIN	Car Price	Date In	Date Out	Days Held
+tajae	cameron	123456	$670440.0	2023-11-20	2023-12-15	25
+john	campbell	123456	$6000.0	2023-11-18	2023-12-13	25
+trisha	quier	112345	$6435.0	2023-11-15	2023-12-12	27
+test	test	12345	$97850.0	2023-11-17	2023-12-10	23
+Bmw	m4	123456	$90543.0	2023-12-01	2023-12-01	0
+honda	civic	234553234	$9000000.0	2023-12-01	2023-12-01	0
+
+Total Cars: 6
+Total Profit: $9871268.0

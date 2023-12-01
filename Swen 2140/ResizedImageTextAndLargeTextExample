@@ -1,0 +1,78 @@
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+
+public class ResizedImageTextAndLargeTextExample {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            JFrame frame = new JFrame("Resized Image, Text, and Large Text Example");
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+            // Load and resize the image from a local file
+            ImageIcon icon = createResizedImageIcon("path/to/your/image.jpg", 400, 400);
+
+            // Create a JLabel to display the resized image
+            JLabel imageLabel = new JLabel(icon);
+
+            // Create a JLabel for text
+            JLabel textLabel = new JLabel("Hello, this is some text.");
+
+            // Create a JTextArea for the large block of text
+            JTextArea largeTextArea = new JTextArea(
+                    "This is a large block of text. " +
+                            "You can add more content here. " +
+                            "It will be displayed below the image and text."
+            );
+            largeTextArea.setEditable(false); // Make the text area non-editable
+            largeTextArea.setLineWrap(true); // Enable line wrapping
+
+            // Create a JPanel to hold the resized image and text side by side
+            JPanel imageTextPanel = new JPanel(new BorderLayout());
+            imageTextPanel.add(imageLabel, BorderLayout.WEST);
+            imageTextPanel.add(textLabel, BorderLayout.CENTER);
+
+            // Create a JComboBox for status
+            String[] statusOptions = {"on-route", "at waft", "at dealer"};
+            JComboBox<String> statusComboBox = new JComboBox<>(statusOptions);
+
+            // Create a JButton for "Sold"
+            JButton soldButton = new JButton("Sold");
+
+            // Create a JPanel to hold the JComboBox and JButton
+            JPanel statusPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            statusPanel.add(statusComboBox);
+
+            // Create a JPanel to hold the JComboBox, JButton, and additional components
+            JPanel bottomPanel = new JPanel(new BorderLayout());
+            bottomPanel.add(statusPanel, BorderLayout.WEST);
+            bottomPanel.add(soldButton, BorderLayout.EAST);
+
+            // Create a JPanel to hold the imageTextPanel and large block of text
+            JPanel mainPanel = new JPanel(new BorderLayout());
+            mainPanel.add(imageTextPanel, BorderLayout.NORTH);
+            mainPanel.add(new JScrollPane(largeTextArea), BorderLayout.CENTER);
+            mainPanel.add(bottomPanel, BorderLayout.SOUTH);
+
+            // Add the mainPanel to the frame
+            frame.getContentPane().add(mainPanel);
+
+            frame.pack();
+            frame.setLocationRelativeTo(null);
+            frame.setVisible(true);
+        });
+    }
+
+    // Method to create a resized ImageIcon from a local file
+    private static ImageIcon createResizedImageIcon(String filePath, int width, int height) {
+        try {
+            File file = new File(filePath);
+            Image originalImage = ImageIO.read(file);
+            Image resizedImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            return new ImageIcon(resizedImage);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+}
